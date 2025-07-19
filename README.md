@@ -47,5 +47,5 @@ Each classification includes a **reason** and **confidence score**.
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/phishing-detector.git
+git clone https://github.com/amandwivedi100/phishing-detector.git
 cd phishing-detector
