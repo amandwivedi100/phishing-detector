@@ -45,4 +45,4 @@ const sendEmailTest = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, response, "it worked on my mac!!!!!!!"));
 });
 
-export { sendEmailTest };
+export { sendEmailTest, scanEmailsController };
