@@ -9,8 +9,11 @@ export default async function EmailPage({ params }) {
     return <p className="text-white">You ain't logged in, bro 🚫</p>;
   }
 
+  // Await params to access id
+  const { id } = await params;
+
   const res = await fetch(
-    `https://gmail.googleapis.com/gmail/v1/users/me/messages/${params.id}`,
+    `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,

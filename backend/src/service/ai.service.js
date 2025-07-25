@@ -11,24 +11,38 @@ async function classifyEmailWithAI(input) {
         ? input
         : {
             subject: input.subject,
-            from: input.from,
-            body: input.body,
+            // from: input.from,
+            body: input.snippet,
           }
     );
 
     const responseData = response.data;
 
     if (isArray) {
-      return input.map((email, index) => ({
-        subject: email.subject,
-        from: email.from,
-        ...responseData[index],
-      }));
+      if (!Array.isArray(responseData)) {
+        throw new ApiError(
+          500,
+          "Expected an array from AI but got something else"
+        );
+      }
+
+      return input.map((email, index) => {
+        const aiResult = responseData[index] || {};
+        return {
+          subject: email.subject,
+          body: email.snippet,
+          // from: email.from,
+          status: aiResult.status || "unknown",
+          confidence: aiResult.confidence ?? null,
+          reason: aiResult.reason || ["No reason provided"],
+        };
+      });
     } else {
       const { status, confidence, reason } = responseData;
       return {
         subject: input.subject,
-        from: input.from,
+        // from: input.from,
+        // body: input.snippet,
         status,
         confidence,
         reason,

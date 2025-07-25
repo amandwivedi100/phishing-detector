@@ -23,6 +23,7 @@ export default async function Dashboard() {
     },
     body: JSON.stringify({ emails }),
   });
+  console.log("🚀 Emails sent to backend:");
 
   return (
     <div className="min-h-screen bg-zinc-900 text-white p-6">

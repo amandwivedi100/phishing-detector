@@ -42,8 +42,8 @@ def classify():
 
     for item in email_list:
         subject = item.get("subject", "")
-        body = item.get("body", "")
-        sender = item.get("from", "")
+        body = item.get("snippet", "")
+        # sender = item.get("from", "")
         text = subject + " " + body
 
         # Tokenize input
@@ -80,7 +80,7 @@ def classify():
             "label": max_label,
             "confidence": round(confidence, 4),
             "all_probabilities": labels,
-            "reason": infer_reason(subject, body, sender, max_label)
+            "reason": infer_reason(subject, body, max_label)
         })
 
     return jsonify(results if len(results) > 1 else results[0])
