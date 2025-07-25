@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 // routes import
 import dashboardRouter from "./routes/dashboard.routes.js";
 
-//mac test route
+//main route
 app.use("/dashboard", dashboardRouter);
 
 export { app };
