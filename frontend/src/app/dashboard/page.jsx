@@ -37,9 +37,34 @@ export default async function Dashboard() {
             <tr className="bg-zinc-700 text-left text-sm uppercase text-gray-400">
               <th className="px-6 py-3">Subject</th>
               <th className="px-6 py-3">Snippet</th>
+              <th className="px-6 py-3">From</th>
               <th className="px-6 py-3">Message ID</th>
             </tr>
           </thead>
+          <tbody>
+            {emails.map((email) => (
+              <tr
+                key={email.id}
+                className="border-b border-zinc-700 hover:bg-zinc-700 transition-colors cursor-pointer"
+              >
+                <td className="px-6 py-4 text-sm font-medium text-white">
+                  <Link href={`/email/${email.id}`} className="hover:underline">
+                    {email.subject}
+                  </Link>
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-300">
+                  <Link href={`/email/${email.id}`} className="hover:underline">
+                    {email.snippet}
+                  </Link>
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-400">
+                  {email.from}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-500">{email.id}</td>
+              </tr>
+            ))}
+          </tbody>
+
           <tbody>
             {emails.map((email) => (
               <tr
@@ -95,11 +120,13 @@ async function fetchEmails(accessToken) {
       const subjectHeader = detail.payload.headers.find(
         (h) => h.name === "Subject"
       );
+      const fromHeader = detail.payload.headers.find((h) => h.name === "From");
 
       return {
         id: msg.id,
         subject: subjectHeader?.value || "(No Subject)",
         snippet: detail.snippet,
+        from: fromHeader?.value || "Unknown",
       };
     })
   );
