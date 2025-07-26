@@ -37,16 +37,6 @@ async function classifyEmailWithAI(input) {
           reason: aiResult.reason || ["No reason provided"],
         };
       });
-    } else {
-      const { status, confidence, reason } = responseData;
-      return {
-        subject: input.subject,
-        // from: input.from,
-        // body: input.snippet,
-        status,
-        confidence,
-        reason,
-      };
     }
   } catch (error) {
     console.error("Ai classification error.", error);
